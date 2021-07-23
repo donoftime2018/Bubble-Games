@@ -1,5 +1,6 @@
 var background_button;
 var save_drawing_button;
+var redraw_button;
 
 function setup()
 {
@@ -11,18 +12,22 @@ function setup()
     save_drawing_button = createButton('Save Image')
     save_drawing_button.position(width/2, 20)
     save_drawing_button.mousePressed(saveDrawing)
+
+    redraw_button = createButton('Redraw Circles')
+    redraw_button.position(width/2, 40)
+    redraw_button.mousePressed(reDraw)
 }
 
 function draw()
 {
     noLoop()
+    background(255)
     let circle_no = Math.floor(Math.random()*100); //draw between 0 and 100 circles
 
     for (let i = 0; i < circle_no; i++)
     {
-        noStroke()
-        fill(random(255), random(255), random(255))
-        circle(Math.floor(Math.random()*width), Math.floor(Math.random()*height), Math.floor(Math.random()*100)+1)
+        let c = new Circle(random(width), random(height), random(100)+1)
+        c.display()
     }
 }
 
@@ -34,4 +39,10 @@ function fillBackground()
 function saveDrawing()
 {
     saveCanvas(); 
+}
+
+function reDraw()
+{
+    background(255)
+    loop()
 }
