@@ -21,7 +21,6 @@ function setup()
 function draw()
 {
     noLoop()
-    background(255)
     let circle_no = Math.floor(Math.random()*100); //draw between 0 and 100 circles
 
     for (let i = 0; i < circle_no; i++)
