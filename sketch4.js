@@ -10,7 +10,6 @@ var saveButton; //button to save a .txt file of all the students in 'students'
 var studentItem;
 
 let i = 0;
-var namePara = [];
 
 function setup()
 {
@@ -45,17 +44,9 @@ function draw()
 {
     noLoop()
 
-    let para;
-
-    para = createP(students[i].getName())
-
-    namePara.push(para)
-
-    for (; i < namePara.length; i++)
+    for (; i < students.length; i++)
     {
-        para.style('font-family', 'arial')
-        para.style('font-size', '18px')
-        para.position(500, 0+i*20)
+        students[i].display(500, 0+i*20)
     }
     
 }
@@ -77,10 +68,8 @@ function removeStudent()
     if (i > 0)
     {
         --i;
-        namePara[i].hide();
+        students[i].remove()
         students.pop();
-        namePara.pop();
-        //loop()
     }
 }
 

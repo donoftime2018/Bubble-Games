@@ -4,6 +4,7 @@ class Student
     {
         this.name = n;
         this.house = h;
+        this.namePara;
     }
 
     toString()
@@ -11,8 +12,20 @@ class Student
         return this.name + " is in " + this.house
     }
 
-    getName()
+    display(px, py)
     {
-        return this.name;
+        this.namePara = createP(this.name)
+        this.namePara.style('font-size', '18px')
+        this.namePara.style('font-family', 'arial')
+        this.namePara.style('color', 'black')
+        this.namePara.position(px, py)
+    }
+
+    remove()
+    {
+        if (this.namePara != null)
+        {
+            this.namePara.hide()
+        }
     }
 }
