@@ -7,7 +7,8 @@ var studentButton; //button to add a new student object to 'students'
 var removeButton; //button to pop off most recently added element to 'students'
 var saveButton; //button to save a .txt file of all the students in 'students'
 
-var studentItem;
+var studentCount;
+var count = 0;
 
 let i = 0;
 
@@ -38,6 +39,12 @@ function setup()
     removeButton.size(100)
     removeButton.position(20, 120)
     removeButton.mousePressed(removeStudent)
+
+    studentCount = select('#count')
+    studentCount.style('font-family', 'arial')
+    studentCount.style('font-size', '18px')
+    studentCount.style('color', 'black')
+    studentCount.position(1200, 20)
 }
 
 function draw()
@@ -48,6 +55,8 @@ function draw()
     {
         students[i].display(500, 0+i*20)
     }
+
+    document.getElementById("count").innerHTML = "Student Count: " + count;
     
 }
 
@@ -59,6 +68,7 @@ function addStudent()
     var student = new Student(name, house);
 
     students.push(student)
+    ++count;
 
     loop()
 }
@@ -70,6 +80,8 @@ function removeStudent()
         --i;
         students[i].remove()
         students.pop();
+        --count;
+        document.getElementById("count").innerHTML = "Student Count: " + count;
     }
 }
 
