@@ -51,9 +51,9 @@ function keyPressed()
     {
         noLoop()
     }
-}
 
-// function mouseClicked()
-// {
-//     alert("To stop the drawing, click anywhere on the webpage! To resume the drawing, press Enter")
-// }
+    if (keyCode === 75)
+    {
+        alert("To stop the drawing, click anywhere on the webpage! To resume the drawing, press Enter")
+    }
+}
