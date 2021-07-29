@@ -42,9 +42,14 @@ function mousePressed()
 
 function keyPressed()
 {
-    if (keyCode === ENTER)
+    if (keyCode === ENTER || keyCode === 87)
     {
         loop()
+    }
+
+    if (keyCode === 67)
+    {
+        noLoop()
     }
 }
 
