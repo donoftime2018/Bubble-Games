@@ -8,6 +8,7 @@ function setup()
     cnv.mousePressed(displayCoordinate)
     cnv.mouseOver(displayPrompt)
     cnv.mouseOut(removePrompt)
+    cnv.mouseWheel(changeColor)
     background(0, 255, 0)
 }
 
@@ -28,7 +29,7 @@ function displayCoordinate()
 
 function displayPrompt()
 {
-    prompt = createP('Click anywhere in the green area to display the x and y coordinates of the exact place you clicked!')
+    prompt = createP('Click anywhere in the colored area to display the x and y coordinates of the exact place you clicked!')
     prompt.style('font-family', 'arial')
     prompt.style('font-size', '25px')
     prompt.style('text-align', 'center')
@@ -40,5 +41,18 @@ function removePrompt()
     if (prompt != null)
     {
         prompt.hide()
+    }
+}
+
+function changeColor(event)
+{
+    if (event.deltaY > 0)
+    {
+        background(255, 0, 0)
+    }
+
+    else
+    {
+        background(0, 255, 0)
     }
 }
