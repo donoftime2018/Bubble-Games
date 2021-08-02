@@ -1,14 +1,25 @@
 let coord;
 let prompt;
 let cnv;
+let color_choice;
 
 function setup()
 {
     cnv = createCanvas(1200, 800)
+    color_choice = createRadio()
+
     cnv.mousePressed(displayCoordinate)
     cnv.mouseOver(displayPrompt)
     cnv.mouseOut(removePrompt)
     cnv.mouseWheel(changeColor)
+
+    color_choice.option('blue')
+    color_choice.option('red')
+    color_choice.style('font-family', 'arial')
+    color_choice.style('font-size', '18px')
+    color_choice.selected('red')
+    color_choice.position(1250, 184)
+
     background(0, 255, 0)
 }
 
@@ -46,9 +57,10 @@ function removePrompt()
 
 function changeColor(event)
 {
+    let col = color_choice.value()
     if (event.deltaY > 0)
     {
-        background(255, 0, 0)
+        background(col)
     }
 
     else
