@@ -12,8 +12,10 @@ function setup()
     bubbleNumber = select("#bubbleCount")
     bubbleNumber.position(width/2, 0)
 
-    document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count;
-
+    document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count
+    
+    ellipseMode(RADIUS)
+    
     setTimeout(endGame, 60000);
 }
 
@@ -73,5 +75,6 @@ function endGame()
         decreaseCount()
     }
     noLoop()
-    window.close();
+    
+    window.close()
 }
