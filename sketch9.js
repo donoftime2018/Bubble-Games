@@ -4,6 +4,13 @@ let count = bubbles.length;
 
 let bubbleNum;
 
+let bubblePop;
+
+function preload()
+{
+    bubblePop = loadSound('319107__duffybro__pop-made-by-duffybro-[AudioTrimmer.com].wav');
+}
+
 function setup()
 {
     let message = "You will have 60 seconds to remove as many bubbles as you can!\n"
@@ -45,6 +52,7 @@ function mousePressed()
         if (bubbles[i].isClicked(mouseX, mouseY)==true)
         {
             bubbles.splice(i, 1)
+            bubblePop.play()
             decreaseCount();
             bubbles_removed++;
         }
@@ -63,7 +71,7 @@ function decreaseCount()
 function endGame()
 {
     alert("Time's up!\n")
-    alert("You deleted " + bubbles_removed + " bubbles!")
+    alert("You popped " + bubbles_removed + " bubbles!")
 
     noLoop()
     

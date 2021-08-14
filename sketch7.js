@@ -2,6 +2,13 @@ let bubbles = [];
 let bubbleNumber;
 let count = 0;
 
+let bubblePop;
+
+function preload()
+{
+    bubblePop = loadSound('319107__duffybro__pop-made-by-duffybro-[AudioTrimmer.com].wav')
+}
+
 function setup()
 {
     let message = "You'll have 60 seconds to populate the screen with as many bubbles as possible\n"
@@ -34,6 +41,7 @@ function mousePressed()
     if (mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height)
     {
         bubbles.push(new Bubble(Math.floor(mouseX), Math.floor(mouseY)))
+        bubblePop.play()
         increaseCount()
     }
 }
@@ -43,6 +51,7 @@ function keyPressed()
     if (keyCode === ENTER)
     {
         bubbles.pop()
+        bubblePop.play()
         decreaseCount()
     }
 }
