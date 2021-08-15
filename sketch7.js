@@ -3,10 +3,12 @@ let bubbleNumber;
 let count = 0;
 
 let bubblePop;
+let backgroundMusic;
 
 function preload()
 {
-    bubblePop = loadSound('319107__duffybro__pop-made-by-duffybro-[AudioTrimmer.com].wav')
+    bubblePop = loadSound('pop.wav')
+    backgroundMusic = loadSound('bg_music.mp3')
 }
 
 function setup()
@@ -16,6 +18,8 @@ function setup()
     alert(message)
     createCanvas(windowWidth, windowHeight)
 
+    bubblePop.setVolume(1.0)
+
     bubbleNumber = select("#bubbleCount")
     bubbleNumber.position(width/2, 0)
 
@@ -24,6 +28,8 @@ function setup()
     ellipseMode(RADIUS)
     
     setTimeout(endGame, 60000);
+
+    playMusic();
 }
 
 function draw()
@@ -56,6 +62,19 @@ function keyPressed()
     }
 }
 
+function playMusic()
+{
+    backgroundMusic.setVolume(0.25)
+
+    if (backgroundMusic.isLoaded())
+        backgroundMusic.play()
+
+    if (!backgroundMusic.isPlaying())
+    {
+        backgroundMusic.play()
+    }
+}
+
 function increaseCount()
 {
     ++count;
@@ -73,6 +92,8 @@ function decreaseCount()
 
 function endGame()
 {
+    backgroundMusic.stop();
+
     alert("Time's up!\n")
     alert("You made " + count + " bubbles!")
 
