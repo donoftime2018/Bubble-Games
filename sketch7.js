@@ -4,6 +4,9 @@ let count = 0;
 
 let bubblePop;
 let backgroundMusic;
+let endGameInterval;
+
+let i = 1;
 
 function preload()
 {
@@ -13,9 +16,6 @@ function preload()
 
 function setup()
 {
-    let message = "You'll have 60 seconds to populate the screen with as many bubbles as possible\n"
-    message+= "Click anywhere in the colored area to create a new bubble and press 'Enter' to delete a bubble"
-    alert(message)
     createCanvas(windowWidth, windowHeight)
 
     bubblePop.setVolume(1.0)
@@ -27,7 +27,7 @@ function setup()
     
     ellipseMode(RADIUS)
     
-    setTimeout(endGame, 60000);
+    endGameInterval = setTimeout(endGame, 60000);
 
     playMusic();
 }
@@ -67,18 +67,20 @@ function playMusic()
     backgroundMusic.setVolume(0.25)
 
     if (backgroundMusic.isLoaded())
-        backgroundMusic.play()
-
-    if (!backgroundMusic.isPlaying())
-    {
-        backgroundMusic.play()
-    }
+        backgroundMusic.loop()
 }
 
 function increaseCount()
 {
     ++count;
     document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count;
+
+    if (count === 0+i*150)
+    {
+        clearInterval(endGameInterval)
+        endGameInterval = setTimeout(endGame, 60000)
+        i++;
+    }
 }
 
 function decreaseCount()

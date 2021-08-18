@@ -1,11 +1,15 @@
 let bubbles_removed = 0;
-let bubbles = new Array(130);
+let bubbles = new Array(500);
 let count = bubbles.length;
 
 let bubbleNum;
 
 let bubblePop;
 let backgroundMusic;
+
+let endGameInterval;
+
+let i = 1;
 
 function preload()
 {
@@ -15,10 +19,6 @@ function preload()
 
 function setup()
 {
-    let message = "You will have 60 seconds to remove as many bubbles as you can!\n"
-    message+= "To remove a bubble just click on it!\n"
-    message+="Hint: It is possible for you to remove a cluster of bubbles (i.e. more than 1) depending on where you click!"
-    alert(message)
 
     createCanvas(windowWidth, windowHeight)
 
@@ -32,13 +32,13 @@ function setup()
 
     bubblePop.setVolume(1.0)
 
-    document.getElementById("bubbleCount").innerHTML = "Bubbles: " + bubbles.length;
+    document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count;
 
     ellipseMode(RADIUS)
 
-    setTimeout(endGame, 60000);
-
     playMusic();
+
+    endGameInterval = setTimeout(endGame, 60000);
 }
 
 function draw()
@@ -60,7 +60,7 @@ function mousePressed()
             bubbles.splice(i, 1)
             bubblePop.play()
             decreaseCount();
-            bubbles_removed++;
+            //bubbles_removed++;
         }
     }
 }
@@ -71,6 +71,20 @@ function decreaseCount()
     {
         --count;
         document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count;
+        bubbles_removed++;
+    }
+
+    if (bubbles_removed === 0+i*65)
+    {
+        clearInterval(endGameInterval)
+        endGameInterval = setTimeout(endGame, 60000)
+        i++;
+    }
+
+    if (count === 0)
+    {
+        background(255, 20, 147)
+        allBubblesPopped();
     }
 }
 
@@ -91,10 +105,16 @@ function playMusic()
     backgroundMusic.setVolume(0.25)
     
     if (backgroundMusic.isLoaded())
-        backgroundMusic.play()
+        backgroundMusic.loop()
+}
 
-    if (!backgroundMusic.isPlaying())
-    {
-        backgroundMusic.play()
-    }
+function allBubblesPopped()
+{
+    backgroundMusic.stop();
+    
+    let message = "You have popped all " + bubbles_removed + " bubbles!";
+
+    setInterval(2000, alert(message))
+
+    window.close()
 }
