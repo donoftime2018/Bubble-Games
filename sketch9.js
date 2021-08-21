@@ -1,5 +1,5 @@
 let bubbles_removed = 0;
-let bubbles = new Array(500);
+let bubbles = new Array(400);
 let count = bubbles.length;
 
 let bubbleNum;
@@ -20,15 +20,31 @@ function preload()
 function setup()
 {
 
-    createCanvas(windowWidth, windowHeight)
-
+    createCanvas(window.innerWidth, window.innerHeight)
     for (let i = 0; i < bubbles.length; i++)
     {
-        bubbles[i] = new Bubble(random(width), random(height))
+        //let num = Math.floor(Math.random()*(2-1)+1)
+        bubbles[i] = new Bubble(Math.floor(random(windowWidth)), Math.floor(random(windowHeight)))
+
+        // if (num === 1)
+        // {
+        //     if (bubbles[i].getY() > height/2)
+        //     {
+        //         bubbles[i].setY(bubbles[i].getY()-50)
+        //     }
+        // }
+
+        // else
+        // {
+        //     if (bubbles[i].getY() < height/2)
+        //     {
+        //         bubbles[i].setY(bubbles[i].getY()+50)
+        //     }
+        // }
     }
 
     bubbleNum = select("#bubbleCount")
-    bubbleNum.position(width/2, 0)
+    bubbleNum.position((width/2)-130, 0)
 
     bubblePop.setVolume(1.0)
 
@@ -38,7 +54,7 @@ function setup()
 
     playMusic();
 
-    endGameInterval = setTimeout(endGame, 60000);
+    endGameInterval = setTimeout(endGame, 230000);
 }
 
 function draw()
@@ -74,12 +90,12 @@ function decreaseCount()
         bubbles_removed++;
     }
 
-    if (bubbles_removed === 0+i*65)
-    {
-        clearInterval(endGameInterval)
-        endGameInterval = setTimeout(endGame, 60000)
-        i++;
-    }
+    // if (bubbles_removed === 0+i*200)
+    // {
+    //     clearInterval(endGameInterval)
+    //     endGameInterval = setTimeout(endGame, 230000)
+    //     i++;
+    // }
 
     if (count === 0)
     {
@@ -94,8 +110,6 @@ function endGame()
     
     alert("Time's up!\n")
     alert("You popped " + bubbles_removed + " bubbles!")
-
-    noLoop()
     
     window.close()
 }
@@ -114,7 +128,7 @@ function allBubblesPopped()
     
     let message = "You have popped all " + bubbles_removed + " bubbles!";
 
-    setInterval(2000, alert(message))
+    alert(message);
 
     window.close()
 }

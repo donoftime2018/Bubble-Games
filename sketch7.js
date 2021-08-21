@@ -16,12 +16,12 @@ function preload()
 
 function setup()
 {
-    createCanvas(windowWidth, windowHeight)
+    createCanvas(window.innerWidth, window.innerHeight)
 
     bubblePop.setVolume(1.0)
 
     bubbleNumber = select("#bubbleCount")
-    bubbleNumber.position(width/2, 0)
+    bubbleNumber.position((width/2)-150, 0)
 
     document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count
     

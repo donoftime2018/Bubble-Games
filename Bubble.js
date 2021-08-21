@@ -14,8 +14,8 @@ class Bubble
       }
         
       move(){
-        this.x = this.x+random(sin(5), sin(-5));
-        this.y = this.y+random(sin(5), sin(-5)); 
+        this.x = this.x+random(sin(2), sin(-2));
+        this.y = this.y+random(sin(4), sin(-4)); 
       }
 
       isClicked(x, y)
@@ -26,5 +26,25 @@ class Bubble
         }
 
         return false;
+      }
+
+      getX()
+      {
+        return this.x
+      }
+
+      getY()
+      {
+        return this.y
+      }
+
+      setX(x)
+      {
+        this.x=x
+      }
+
+      setY(y)
+      {
+        this.y=y
       }
 }
