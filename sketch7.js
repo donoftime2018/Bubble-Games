@@ -81,6 +81,30 @@ function increaseCount()
         endGameInterval = setTimeout(endGame, 60000)
         i++;
     }
+
+    if (count === 1000)
+    {
+        tooManyBubbles()
+    }
+}
+
+function tooManyBubbles()
+{
+    backgroundMusic.stop()
+
+    alert("OK that's too many bubbles for one day!");
+
+    let totalBubbles = count;
+
+    for (let i = 0; i < totalBubbles; i++)
+    {
+        bubbles.pop()
+        decreaseCount()
+    }
+    
+    noLoop()
+    
+    window.close()
 }
 
 function decreaseCount()
