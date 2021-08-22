@@ -1,4 +1,4 @@
-let bubbles_removed = 0;
+let bubbles_popped = 0;
 let bubbles = new Array(400);
 let count = bubbles.length;
 
@@ -9,18 +9,28 @@ let backgroundMusic;
 
 let endGameInterval;
 
-let i = 1;
-
 function preload()
 {
+    // let message = "From the moment you pop the first bubble, you will have 3 minutes and 50 seconds to pop as many bubbles as you can!\n"
+    // message+= "To pop a bubble just click on it!\n"
+    // message+= "When you get down to one remaining bubble, you'll have as much time as you like to pop it\n"
+    // message+="Hint: It is possible for you to remove a cluster of bubbles (i.e. more than 1) depending on where you click!"
+    // alert(message);
+
     bubblePop = loadSound('pop.wav');
     backgroundMusic = loadSound('bg_music.mp3')
 }
 
 function setup()
 {
+    let message = "From the moment you pop the first bubble, you will have 3 minutes and 50 seconds to pop as many bubbles as you can!\n"
+    message+= "To pop a bubble just click on it!\n"
+    message+= "When you get down to one remaining bubble, you'll have as much time as you like to pop it\n"
+    message+="Hint: It is possible for you to remove a cluster of bubbles (i.e. more than 1) depending on where you click!"
+    alert(message);
 
     createCanvas(window.innerWidth, window.innerHeight)
+    
     for (let i = 0; i < bubbles.length; i++)
     {
         //let num = Math.floor(Math.random()*(2-1)+1)
@@ -28,19 +38,29 @@ function setup()
 
         // if (num === 1)
         // {
-        //     if (bubbles[i].getY() > height/2)
-        //     {
-        //         bubbles[i].setY(bubbles[i].getY()-50)
-        //     }
+            if (bubbles[i].getY() > height/2)
+            {
+                bubbles[i].setY(bubbles[i].getY()-10)
+            }
+
+            if (bubbles[i].getX() < 0)
+            {
+                bubbles[i].setX(9)
+            }
         // }
 
         // else
         // {
-        //     if (bubbles[i].getY() < height/2)
-        //     {
-        //         bubbles[i].setY(bubbles[i].getY()+50)
-        //     }
-        // }
+            if (bubbles[i].getY() < height/2)
+            {
+                bubbles[i].setY(bubbles[i].getY()+10)
+            }
+
+            if (bubbles[i].getX() > width)
+            {
+                bubbles[i].setX(width-9)
+            }
+        //}
     }
 
     bubbleNum = select("#bubbleCount")
@@ -53,8 +73,6 @@ function setup()
     ellipseMode(RADIUS)
 
     playMusic();
-
-    endGameInterval = setTimeout(endGame, 230000);
 }
 
 function draw()
@@ -65,6 +83,9 @@ function draw()
         bubbles[i].display()
         bubbles[i].move()
     }
+
+    if (count === 1)
+        clearInterval(endGameInterval)
 }
 
 function mousePressed()
@@ -76,7 +97,12 @@ function mousePressed()
             bubbles.splice(i, 1)
             bubblePop.play()
             decreaseCount();
-            //bubbles_removed++;
+            bubbles_popped++;
+
+            if (bubbles_popped === 1)
+            {
+                endGameInterval = setTimeout(endGame, 230000);
+            }
         }
     }
 }
@@ -87,15 +113,7 @@ function decreaseCount()
     {
         --count;
         document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count;
-        bubbles_removed++;
     }
-
-    // if (bubbles_removed === 0+i*200)
-    // {
-    //     clearInterval(endGameInterval)
-    //     endGameInterval = setTimeout(endGame, 230000)
-    //     i++;
-    // }
 
     if (count === 0)
     {
@@ -109,7 +127,7 @@ function endGame()
     backgroundMusic.stop();
     
     alert("Time's up!\n")
-    alert("You popped " + bubbles_removed + " bubbles!")
+    alert("You popped popped " + bubbles_popped + " bubbles!")
     
     window.close()
 }
@@ -126,7 +144,7 @@ function allBubblesPopped()
 {
     backgroundMusic.stop();
     
-    let message = "You have popped all " + bubbles_removed + " bubbles!";
+    let message = "You have popped all popped " + bubbles_popped + "!";
 
     alert(message);
 

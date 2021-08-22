@@ -7,7 +7,12 @@
         <title>Bubbly Bubbles</title>
 
         <style css="text/css">
-            p {color: white; padding: 14px; font-family: arial; background-color:blueviolet; font-weight: bold; text-align: center; border-style: solid; border-color: aqua ;font-size: 30px}
+
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none;
+        }
+        
+        p {color: white; padding: 14px; font-family: arial; background-color:blueviolet; font-weight: bold; text-align: center; border-style: solid; border-color: aqua ;font-size: 30px}
         </style>
 
         <script src="libraries/p5.min.js"></script>
@@ -15,12 +20,12 @@
     </head>
 
     <body>
-        <script type="text/javascript">
-            let message = "You'll have 60 seconds to populate the screen with as many bubbles as possible\n"
-            message+= "Click anywhere in the colored area to create a new bubble and press 'Enter' to delete the most recently created bubble\n"
-            message+="Every time you pop 150 bubbles, you'll gain an extra 60 seconds to make as many bubbles as you like!"
-            alert(message);
-        </script>
+        <!-- <script type="text/javascript">
+            // let message = "You'll have 60 seconds to populate the screen with as many bubbles as possible\n"
+            // message+= "Click anywhere in the colored area to create a new bubble and press 'Enter' to delete the most recently created bubble\n"
+            // message+="Every time you pop 150 bubbles, you'll gain an extra 60 seconds to make as many bubbles as you like!"
+            // alert(message);
+        </script> -->
 
         <script src="sketch7.js"></script>
         <script src="Bubble.js"></script>
