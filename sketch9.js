@@ -11,68 +11,13 @@ let endGameInterval;
 
 function preload()
 {
-    // let message = "From the moment you pop the first bubble, you will have 3 minutes and 50 seconds to pop as many bubbles as you can!\n"
-    // message+= "To pop a bubble just click on it!\n"
-    // message+= "When you get down to one remaining bubble, you'll have as much time as you like to pop it\n"
-    // message+="Hint: It is possible for you to remove a cluster of bubbles (i.e. more than 1) depending on where you click!"
-    // alert(message);
-
     bubblePop = loadSound('pop.wav');
     backgroundMusic = loadSound('bg_music.mp3')
 }
 
 function setup()
 {
-    let message = "From the moment you pop the first bubble, you will have 3 minutes and 50 seconds to pop as many bubbles as you can!\n"
-    message+= "To pop a bubble just click on it!\n"
-    message+= "When you get down to one remaining bubble, you'll have as much time as you like to pop it\n"
-    message+="Hint: It is possible for you to remove a cluster of bubbles (i.e. more than 1) depending on where you click!"
-    alert(message);
-
-    createCanvas(window.innerWidth, window.innerHeight)
-    
-    for (let i = 0; i < bubbles.length; i++)
-    {
-        //let num = Math.floor(Math.random()*(2-1)+1)
-        bubbles[i] = new Bubble(Math.floor(random(windowWidth)), Math.floor(random(windowHeight)))
-
-        // if (num === 1)
-        // {
-            if (bubbles[i].getY() > height/2)
-            {
-                bubbles[i].setY(bubbles[i].getY()-10)
-            }
-
-            if (bubbles[i].getX() < 0)
-            {
-                bubbles[i].setX(9)
-            }
-        // }
-
-        // else
-        // {
-            if (bubbles[i].getY() < height/2)
-            {
-                bubbles[i].setY(bubbles[i].getY()+10)
-            }
-
-            if (bubbles[i].getX() > width)
-            {
-                bubbles[i].setX(width-9)
-            }
-        //}
-    }
-
-    bubbleNum = select("#bubbleCount")
-    bubbleNum.position((width/2)-130, 0)
-
-    bubblePop.setVolume(1.0)
-
-    document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count;
-
-    ellipseMode(RADIUS)
-
-    playMusic();
+    startGame();
 }
 
 function draw()
@@ -127,9 +72,25 @@ function endGame()
     backgroundMusic.stop();
     
     alert("Time's up!\n")
-    alert("You popped popped " + bubbles_popped + " bubbles!")
+    alert("You popped" + bubbles_popped + " bubbles!\n")
+
+    response = window.prompt("Do you want to try again?", "yes");
     
-    window.close()
+    if (response === "yes" || response === "Yes")
+    {
+        clearInterval(endGameInterval)
+        startGame()
+    }
+
+    else if (response === "no" || response === "No")
+    {
+        window.close()
+    }
+
+    else
+    {
+        window.close()
+    }
 }
 
 function playMusic()
@@ -144,9 +105,73 @@ function allBubblesPopped()
 {
     backgroundMusic.stop();
     
-    let message = "You have popped all popped " + bubbles_popped + "!";
+    let message = "You have popped all " + bubbles_popped + " bubbles!";
 
     alert(message);
 
-    window.close()
+    response = window.prompt("Do you want to try again?", "yes");
+    
+    if (response === "yes" || response === "Yes")
+    {
+        clearInterval(endGameInterval)
+        startGame()
+    }
+
+    else if (response === "no" || response === "No")
+    {
+        window.close()
+    }
+
+    else
+    {
+        window.close()
+    }
+    
+}
+
+function startGame()
+{
+    let message = "From the moment you pop the first bubble, you will have 3 minutes and 50 seconds to pop as many bubbles as you can!\n"
+    message+= "To pop a bubble just click on it!\n"
+    message+= "When you get down to one remaining bubble, you'll have as much time as you like to pop it\n"
+    message+="Hint: It is possible for you to remove a cluster of bubbles (i.e. more than 1) depending on where you click!"
+    alert(message);
+
+    createCanvas(window.innerWidth, window.innerHeight)
+    
+    for (let i = 0; i < bubbles.length; i++)
+    {
+        bubbles[i] = new Bubble(Math.floor(random(windowWidth)), Math.floor(random(windowHeight)))
+
+        if (bubbles[i].getY() > height/2)
+        {
+            bubbles[i].setY(bubbles[i].getY()-10)
+        }
+
+        if (bubbles[i].getX() < 0)
+        {
+            bubbles[i].setX(width+10)
+        }
+
+        if (bubbles[i].getY() < height/2)
+        {
+            bubbles[i].setY(bubbles[i].getY()+10)
+        }
+
+        if (bubbles[i].getX() > width)
+        {
+            bubbles[i].setX(width-10)
+        }
+    }
+
+    bubbleNum = select("#bubbleCount")
+    bubbleNum.position((width/2)-130, 0)
+
+    bubblePop.setVolume(1.0)
+
+    document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count;
+
+    ellipseMode(RADIUS)
+
+    playMusic();
 }

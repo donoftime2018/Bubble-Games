@@ -16,23 +16,7 @@ function preload()
 
 function setup()
 {
-    let message = "From the moment you create the first bubble, you'll have 60 seconds to populate the screen with as many bubbles as possible\n"
-    message+= "Click anywhere in the colored area to create a new bubble and press 'Enter' to delete the most recently created bubble\n"
-    message+="Every time you pop 150 bubbles, you'll gain an extra 60 seconds to make as many bubbles as you like!"
-    alert(message);
-
-    createCanvas(window.innerWidth, window.innerHeight)
-
-    bubblePop.setVolume(1.0)
-
-    bubbleNumber = select("#bubbleCount")
-    bubbleNumber.position((width/2)-150, 0)
-
-    document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count
-    
-    ellipseMode(RADIUS)
-
-    playMusic();
+    startGame();
 }
 
 function draw()
@@ -59,9 +43,12 @@ function keyPressed()
 {
     if (keyCode === ENTER)
     {
-        bubbles.pop()
-        bubblePop.play()
-        decreaseCount()
+        if (count > 0)
+        {
+            bubbles.pop()
+            bubblePop.play()
+            decreaseCount()
+        }
     }
 }
 
@@ -130,15 +117,66 @@ function endGame()
 
     alert("Time's up!\n")
     alert("You made " + count + " bubbles!")
+    let response = window.prompt("Would you like to try again?", "Yes")
 
     let totalBubbles = count;
 
-    for (let i = 0; i < totalBubbles; i++)
+    if (response === "No" || response === "no")
     {
-        bubbles.pop()
-        decreaseCount()
-    }
-    noLoop()
+        for (let i = 0; i < totalBubbles; i++)
+        {
+            bubbles.pop()
+            decreaseCount()
+        }
+        noLoop()
     
-    window.close()
+        window.close()
+    }
+
+    else if (response === "Yes" || response === "yes")
+    {
+        for (let i = 0; i < totalBubbles; i++)
+        {
+            bubbles.pop()
+            decreaseCount()
+        }
+        clearInterval(endGameInterval)
+        startGame();
+    }
+
+    else
+    {
+        for (let i = 0; i < totalBubbles; i++)
+        {
+            bubbles.pop()
+            decreaseCount()
+        }
+        noLoop()
+    
+        window.close()
+    }
+}
+
+function startGame()
+{
+    let message = "From the moment you create the first bubble, you'll have 60 seconds to populate the screen with as many bubbles as possible\n"
+    message+= "Click anywhere in the colored area to create a new bubble and press 'Enter' to delete the most recently created bubble\n"
+    message+="Every time you pop 150 bubbles, you'll gain an extra 60 seconds to make as many bubbles as you like!"
+    message+="\nSomething SUPER incredible happens when you make 1000 bubbles!";
+    alert(message);
+
+    createCanvas(window.innerWidth, window.innerHeight)
+
+    bubblePop.setVolume(1.0)
+
+    bubbleNumber = select("#bubbleCount")
+    bubbleNumber.position((width/2)-150, 0)
+
+    document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count
+    
+    ellipseMode(RADIUS)
+
+    playMusic();
+
+   // redraw();
 }
