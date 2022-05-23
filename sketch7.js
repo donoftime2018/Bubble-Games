@@ -6,6 +6,7 @@ let bubblePop;
 let backgroundMusic;
 let endGameInterval;
 
+let timeElapsed;
 let i = 1;
 
 function preload()
@@ -17,16 +18,23 @@ function preload()
 function setup()
 {
     startGame();
+    //timeElapsed = millis()
 }
 
 function draw()
 {
+    //timeElapsed = millis()
     background(255,20,147)
     for (let i = 0; i < bubbles.length; i++)
     {
         bubbles[i].display()
         bubbles[i].move()
     }
+    
+    textSize(25)
+    fill(color('white'))
+    timeElapsed = millis()
+    text(timeElapsed.toFixed(0), (width/2)-82, 120)
 }
 
 function mousePressed()
@@ -178,5 +186,7 @@ function startGame()
 
     playMusic();
 
-   // redraw();
+//    // redraw();
+//    timeElapsed = millis()
+//    text(timeElapsed, (width/2), 100)
 }
