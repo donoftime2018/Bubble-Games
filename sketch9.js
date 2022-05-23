@@ -31,6 +31,11 @@ function draw()
 
     if (count === 1)
         clearInterval(endGameInterval)
+    
+    textSize(25)
+    fill(color('white'))
+    timeElapsed = millis()
+    text(timeElapsed.toFixed(0), (width/2)-58, 120)
 }
 
 function mousePressed()
