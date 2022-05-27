@@ -1,0 +1,124 @@
+li {
+	font-family: 'Gill Sans MT';
+	text-align: center;
+	font-weight: bold;
+	-webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+	text-transform: uppercase;
+	text-shadow: black 2px;
+	border-style: dotted;
+	background-color: rgb(255, 217, 2, 0.6);
+	margin-bottom: 18px;
+	margin-right: 22px;
+	padding: 10px;
+}
+
+ol  {
+	list-style-type: none;
+	padding: 15px;
+}
+
+ul {
+	list-style-type: none;
+	/* padding: 10px; */
+}
+
+body {
+	background-image: linear-gradient(to bottom, blue, red);
+}
+
+p {
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	text-align:center;
+	font-weight:bold;
+	-webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+	text-transform: uppercase;
+	text-shadow: black 2px;
+	margin-right: 22px;
+}
+
+#level1 {
+	color: #AAFF00;
+	font-size: 33px;
+}
+
+#level2 {
+	color: yellow;
+	font-size: 33px;
+}
+
+#level3 {
+	color: #505050;
+	font-size: 33px;
+}
+
+#level4 {
+	color: green;
+	font-size: 33px;
+}
+
+#level5 {
+	color: aqua;
+	font-size: 33px;
+}
+
+#level6 {
+	color: orange;
+	font-size: 33px;
+}
+
+#level7 {
+	color: navy;
+	font-size: 33px;
+}
+
+#level8 {
+	color: grey;
+	font-size: 33px;
+}
+
+#level9 {
+	color: #0BDA51;
+	font-size: 33px;
+}
+
+a{
+	color: inherit;
+	text-shadow: inherit;
+	text-decoration: none;
+	-webkit-text-stroke-width: inherit;
+	-webkit-text-stroke-color: inherit;
+}
+
+a:link {
+	text-decoration: none;
+	color: inherit;
+	text-shadow: inherit;
+	-webkit-text-stroke-width: inherit;
+	-webkit-text-stroke-color: inherit;
+  }
+  
+  a:visited {
+	text-decoration: none;
+	color: inherit;
+	text-shadow: inherit;
+	-webkit-text-stroke-width: inherit;
+	-webkit-text-stroke-color: inherit;
+  }
+  
+  a:hover {
+	text-decoration: none;
+	color: inherit;
+	text-shadow: inherit;
+	-webkit-text-stroke-width: inherit;
+	-webkit-text-stroke-color: inherit;
+  }
+  
+  a:active {
+	text-decoration: none;
+	color: inherit;
+	text-shadow: inherit;
+	-webkit-text-stroke-width: inherit;
+	-webkit-text-stroke-color: inherit;
+  }
