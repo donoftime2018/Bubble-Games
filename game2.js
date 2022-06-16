@@ -147,26 +147,6 @@ function startGame()
     for (let i = 0; i < bubbles.length; i++)
     {
         bubbles[i] = new Bubble(Math.floor(random(windowWidth)), Math.floor(random(windowHeight)))
-
-        if (bubbles[i].getY() > height/2)
-        {
-            bubbles[i].setY(bubbles[i].getY()-10)
-        }
-
-        if (bubbles[i].getX() < 0)
-        {
-            bubbles[i].setX(width+10)
-        }
-
-        if (bubbles[i].getY() < height/2)
-        {
-            bubbles[i].setY(bubbles[i].getY()+10)
-        }
-
-        if (bubbles[i].getX() > width)
-        {
-            bubbles[i].setX(width-10)
-        }
     }
 
     bubbleNum = select("#bubbleCount")
