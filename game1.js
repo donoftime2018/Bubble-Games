@@ -34,7 +34,7 @@ function draw()
     textSize(25)
     fill(color('white'))
     timeElapsed = millis()
-    text(timeElapsed.toFixed(0), (width/2)-82, 120)
+    text(timeElapsed.toFixed(0), (width/2)-97, 120)
 }
 
 function mousePressed()
@@ -185,5 +185,5 @@ function startGame()
     ellipseMode(RADIUS)
 
     playMusic();
-    
+
 }

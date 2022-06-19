@@ -3,7 +3,7 @@ class Bubble
     constructor(x,y) {
         this.x = x;
         this.y = y;
-        this.r = Math.floor(Math.random()*(40-30)+30)
+        this.r = Math.floor(Math.random()*(50-45)+45)
         this.col = color(random(255), random(255), random(255))
       } 
         
@@ -14,8 +14,22 @@ class Bubble
       }
         
       move(){
-        this.x = this.x+random(sin(2), sin(-2));
-        this.y = this.y+random(sin(2), sin(-2)); 
+        min = Math.ceil(0)
+        max = Math.floor(1)
+        let direction = Math.floor(Math.random() * (max - min + 1) + min)
+
+        if (direction === 1)
+        {
+          this.x = this.x+Math.random(sin(11), sin(-11));
+          this.y = this.y+Math.random(sin(11), sin(-11)); 
+        }
+
+        else
+        {
+          this.x = this.x-Math.random(sin(11), sin(-11));
+          this.y = this.y-Math.random(sin(11), sin(-11));
+        }
+
       }
 
       isClicked(x, y)
@@ -27,6 +41,38 @@ class Bubble
 
         return false;
       }
+
+      getY()
+      {
+        return this.y;
+      }
+
+      getX()
+      {
+        return this.x;
+      }
+
+      increaseY(y)
+      {
+        this.y=this.y+y;
+      }
+
+      decreaseY(y)
+      {
+        this.y=this.y-y;
+      }
+
+      increaseX(x)
+      {
+        this.x=this.x+x;
+      }
+
+      decreaseX(x)
+      {
+        this.x=this.x-x;
+      }
+
+      
 
       
 }

@@ -35,7 +35,7 @@ function draw()
     textSize(25)
     fill(color('white'))
     timeElapsed = millis()
-    text(timeElapsed.toFixed(0), (width/2)-58, 120)
+    text(timeElapsed.toFixed(0), (width/2)-63, 120)
 }
 
 function mousePressed()
@@ -46,8 +46,8 @@ function mousePressed()
         {
             bubbles.splice(i, 1)
             bubblePop.play()
-            decreaseCount();
             bubbles_popped++;
+            decreaseCount();
 
             if (bubbles_popped === 1)
             {
@@ -77,23 +77,28 @@ function endGame()
     backgroundMusic.stop();
     
     alert("Time's up!\n")
-    alert("You popped" + bubbles_popped + " bubbles!\n")
+    alert("You popped " + bubbles_popped + " bubbles!\n")
 
-    response = window.prompt("Do you want to try again?", "yes");
+    let response = window.prompt("Do you want to try again?", "yes");
     
     if (response === "yes" || response === "Yes")
     {
         clearInterval(endGameInterval)
+        count = 400
+        bubbles_popped = 0
+        bubbles = new Array(400)
         startGame()
     }
 
     else if (response === "no" || response === "No")
     {
+        noLoop()
         window.close()
     }
 
     else
     {
+        noLoop()
         window.close()
     }
 }
@@ -114,21 +119,26 @@ function allBubblesPopped()
 
     alert(message);
 
-    response = window.prompt("Do you want to try again?", "yes");
+    let response = window.prompt("Do you want to try again?", "yes");
     
     if (response === "yes" || response === "Yes")
     {
         clearInterval(endGameInterval)
+        count = 400
+        bubbles_popped = 0
+        bubbles = new Array(400)
         startGame()
     }
 
     else if (response === "no" || response === "No")
     {
+        noLoop()
         window.close()
     }
 
     else
     {
+        noLoop()
         window.close()
     }
     
@@ -144,9 +154,29 @@ function startGame()
 
     createCanvas(window.innerWidth, window.innerHeight)
     
-    for (let i = 0; i < bubbles.length; i++)
+    for (let i = 0; i < 400; i++)
     {
-        bubbles[i] = new Bubble(Math.floor(random(windowWidth)), Math.floor(random(windowHeight)))
+        bubbles[i] = new Bubble(Math.floor(Math.random()*width), Math.floor(random()*height))
+
+        if (bubbles[i].getX() === 0)
+        {
+            bubbles[i].increaseX(25)
+        }
+
+        if (bubbles[i].getX() === window.innerWidth)
+        {
+            bubbles[i].decreaseX(25)
+        }
+
+        if (bubbles[i].getY() === 0)
+        {
+            bubbles[i].increaseY(25)
+        }
+
+        if (bubbles[i].getY() === window.innerHeight)
+        {
+            bubbles[i].decreaseY(25)
+        }
     }
 
     bubbleNum = select("#bubbleCount")
