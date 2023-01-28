@@ -4,7 +4,7 @@ let count = 0;
 
 let bubblePop;
 let backgroundMusic;
-let endGameInterval;
+let endGameTimeout;
 
 let timeElapsed;
 let i = 1;
@@ -75,14 +75,14 @@ function increaseCount()
 
     if (count === 0+i*150)
     {
-        clearInterval(endGameInterval)
-        endGameInterval = setTimeout(endGame, 60000)
+        clearTimeout(endGameTimeout)
+        endGameTimeout = setTimeout(endGame, 60000)
         i++;
     }
 
     if (count === 1)
     {
-        endGameInterval = setTimeout(endGame, 60000);
+        endGameTimeout = setTimeout(endGame, 60000);
     }
 
     if (count === 1000)
@@ -93,20 +93,7 @@ function increaseCount()
 
 function tooManyBubbles()
 {
-    backgroundMusic.stop()
-
-    alert("OK that's too many bubbles for one day!");
-
-    let totalBubbles = count;
-
-    for (let i = 0; i < totalBubbles; i++)
-    {
-        bubbles.pop()
-        decreaseCount()
-    }
-    
-    noLoop()
-    
+    alert("That's too many bubbles for one day!")
     window.close()
 }
 
@@ -119,12 +106,8 @@ function decreaseCount()
     }
 }
 
-function endGame()
+function newGame()
 {
-    backgroundMusic.stop();
-
-    alert("Time's up!\n")
-    alert("You made " + count + " bubbles!")
     let response = window.prompt("Would you like to try again?", "Yes")
 
     let totalBubbles = count;
@@ -148,7 +131,8 @@ function endGame()
             bubbles.pop()
             decreaseCount()
         }
-        clearInterval(endGameInterval)
+        clearTimeout(endGameTimeout)
+        timeElapsed = 0;
         startGame();
     }
 
@@ -165,12 +149,20 @@ function endGame()
     }
 }
 
+function endGame()
+{
+    backgroundMusic.stop();
+
+    alert("Time's up!\n")
+    alert("You made " + count + " bubbles!")
+    newGame()
+}
+
 function startGame()
 {
     let message = "From the moment you create the first bubble, you'll have 60 seconds to populate the screen with as many bubbles as possible\n"
     message+= "Click anywhere in the colored area to create a new bubble and press 'Enter' to delete the most recently created bubble\n"
     message+="Every time you pop 150 bubbles, you'll gain an extra 60 seconds to make as many bubbles as you like!"
-    message+="\nSomething SUPER incredible happens when you make 1000 bubbles!";
     alert(message);
 
     createCanvas(window.innerWidth, window.innerHeight)

@@ -1,13 +1,17 @@
 let bubbles_popped = 0;
-let bubbles = new Array(400);
+let bubbles = [];
 let count = bubbles.length;
 
 let bubbleNum;
 
+let popButton;
+
 let bubblePop;
 let backgroundMusic;
 
-let endGameInterval;
+let endGameTimeout;
+
+let timeElapsed;
 
 function preload()
 {
@@ -28,9 +32,6 @@ function draw()
         bubbles[i].display()
         bubbles[i].move()
     }
-
-    if (count === 1)
-        clearInterval(endGameInterval)
     
     textSize(25)
     fill(color('white'))
@@ -51,7 +52,12 @@ function mousePressed()
 
             if (bubbles_popped === 1)
             {
-                endGameInterval = setTimeout(endGame, 230000);
+                endGameTimeout = setTimeout(endGame, 230000)
+            }
+
+            if (count === 20)
+            {
+                popButton.show()
             }
         }
     }
@@ -67,8 +73,24 @@ function decreaseCount()
 
     if (count === 0)
     {
-        background(255, 20, 147)
         allBubblesPopped();
+    }
+
+    if (count === 1)
+    {
+        clearTimeout(endGameTimeout)
+    }
+}
+
+function popRemainingBubbles()
+{
+    let remaining = bubbles.length;
+    for (let i = 0; i < remaining; i++)
+    {
+        bubbles.splice(i, 1);
+        bubblePop.play();
+        bubbles_popped++;
+        decreaseCount()
     }
 }
 
@@ -79,14 +101,19 @@ function endGame()
     alert("Time's up!\n")
     alert("You popped " + bubbles_popped + " bubbles!\n")
 
+    newGame()
+}
+
+function newGame()
+{
     let response = window.prompt("Do you want to try again?", "yes");
     
     if (response === "yes" || response === "Yes")
     {
-        clearInterval(endGameInterval)
-        count = 400
+        clearTimeout(endGameTimeout)
         bubbles_popped = 0
-        bubbles = new Array(400)
+        timeElapsed = 0;
+        popButton.hide()
         startGame()
     }
 
@@ -119,28 +146,7 @@ function allBubblesPopped()
 
     alert(message);
 
-    let response = window.prompt("Do you want to try again?", "yes");
-    
-    if (response === "yes" || response === "Yes")
-    {
-        clearInterval(endGameInterval)
-        count = 400
-        bubbles_popped = 0
-        bubbles = new Array(400)
-        startGame()
-    }
-
-    else if (response === "no" || response === "No")
-    {
-        noLoop()
-        window.close()
-    }
-
-    else
-    {
-        noLoop()
-        window.close()
-    }
+    newGame()
     
 }
 
@@ -148,35 +154,33 @@ function startGame()
 {
     let message = "From the moment you pop the first bubble, you will have 3 minutes and 50 seconds to pop as many bubbles as you can!\n"
     message+= "To pop a bubble just click on it!\n"
+    message+="When there are 20 more bubbles, a button will appear that you can press to pop all the remaining bubbles if you so desire.\n"
     message+= "When you get down to one remaining bubble, you'll have as much time as you like to pop it\n"
     message+="Hint: It is possible for you to remove a cluster of bubbles (i.e. more than 1) depending on where you click!"
     alert(message);
+    
+    while(true)
+    {
+       let bubblesLength = prompt("Would you like to pop 200, 300, or 400 bubbles?")
+       count = Number(bubblesLength)
+
+        if (count === 200 || count === 300 || count === 400)
+        {
+            break;
+        }
+
+        else
+        {
+            alert("Invalid input")
+            continue;
+        }
+    }
 
     createCanvas(window.innerWidth, window.innerHeight)
     
-    for (let i = 0; i < 400; i++)
+    for (let i = 0; i < count; i++)
     {
-        bubbles[i] = new Bubble(Math.floor(Math.random()*width), Math.floor(random()*height))
-
-        if (bubbles[i].getX() === 0)
-        {
-            bubbles[i].increaseX(25)
-        }
-
-        if (bubbles[i].getX() === window.innerWidth)
-        {
-            bubbles[i].decreaseX(25)
-        }
-
-        if (bubbles[i].getY() === 0)
-        {
-            bubbles[i].increaseY(25)
-        }
-
-        if (bubbles[i].getY() === window.innerHeight)
-        {
-            bubbles[i].decreaseY(25)
-        }
+        bubbles[i] = new Bubble(Math.random()*width, Math.random()*height)
     }
 
     bubbleNum = select("#bubbleCount")
@@ -187,6 +191,17 @@ function startGame()
     document.getElementById("bubbleCount").innerHTML = "Bubbles: " + count;
 
     ellipseMode(RADIUS)
+
+    popButton = createButton('Pop all Bubbles!');
+    popButton.position((width/2)-130, (height/2))
+
+    popButton.style('font-size', '30px')
+    popButton.style('border-color', 'aqua')
+    popButton.style('color', 'white')
+    popButton.style('text-align', 'center')
+    popButton.style('background-color', 'red')
+    popButton.mousePressed(popRemainingBubbles)
+    popButton.hide()
 
     playMusic();
 }

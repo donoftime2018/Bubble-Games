@@ -11,6 +11,7 @@ class Bubble
         stroke(0)
         fill(this.col);
         circle(this.x,this.y, this.r);
+        line(this.x+5, this.y+1, this.x+14, this.y+10)
       }
         
       move(){
@@ -40,36 +41,6 @@ class Bubble
         }
 
         return false;
-      }
-
-      getY()
-      {
-        return this.y;
-      }
-
-      getX()
-      {
-        return this.x;
-      }
-
-      increaseY(y)
-      {
-        this.y=this.y+y;
-      }
-
-      decreaseY(y)
-      {
-        this.y=this.y-y;
-      }
-
-      increaseX(x)
-      {
-        this.x=this.x+x;
-      }
-
-      decreaseX(x)
-      {
-        this.x=this.x-x;
       }
 
       
