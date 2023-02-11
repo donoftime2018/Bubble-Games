@@ -11,7 +11,6 @@ class Bubble
         stroke(0)
         fill(this.col);
         circle(this.x,this.y, this.r);
-        line(this.x+5, this.y+1, this.x+14, this.y+10)
       }
         
       move(){
